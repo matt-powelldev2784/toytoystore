@@ -4,4 +4,5 @@ export type Product = {
   description: string
   handle: string
   image: string | null
+  price: string
 }

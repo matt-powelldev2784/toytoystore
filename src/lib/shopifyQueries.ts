@@ -15,6 +15,16 @@ export const getAllProducts = `
               }
             }
           }
+          priceRange {
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
         }
       }
     }
