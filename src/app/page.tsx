@@ -1,7 +1,14 @@
 import { shopify } from '@/lib/shopify'
 import { getAllProducts } from '@/lib/shopifyQueries'
 import { Product } from '@/lib/types'
+import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
+import { type SanityDocument } from 'next-sanity'
+import { sanity } from '@/lib/sanity'
+import Image from 'next/image'
+import blurImage from '@/assets/blur.jpg'
 
+// get products from Shopify
 const getProducts = async (): Promise<Product[]> => {
   const { data } = await shopify.request(getAllProducts)
 
@@ -15,16 +22,37 @@ const getProducts = async (): Promise<Product[]> => {
   }))
 }
 
-  export default async function Home() {
-    const products = await getProducts()
+// get promo information from Sanity
+const PROMO_QUERY = `*[_type == "promo"]{ _id, image,promoMessage,companyName}`
+const options = { next: { revalidate: 30 } }
+const { projectId, dataset } = sanity.config()
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset }).image(source)
+    : null
 
-    console.log('products', products)
-    return (
-      <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-        <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-          test
-        </main>
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center"></footer>
+export default async function Home() {
+  const products = await getProducts()
+  const promo = await sanity.fetch<SanityDocument[]>(PROMO_QUERY, {}, options)
+  const promoInfo = promo[0]
+
+  const promoImageUrl = promoInfo.image ? urlFor(promoInfo.image)?.url() : null
+
+  return (
+    <main className="relative min-w-screen min-h-screen">
+      <Image
+        src={promoImageUrl || blurImage}
+        alt={promoInfo.promoMessage || 'Promo image'}
+        width={550}
+        height={330}
+        className="absolute right-0"
+      />
+
+      <div className="relative z-10 text-left text-black p-8">
+        <h1 className="text-4xl font-bold mb-8">{promoInfo.companyName}</h1>
+        <p className="text-lg">{promoInfo.promoMessage}</p>
       </div>
-    )
-  }
+    </main>
+  )
+}
+
