@@ -1,10 +1,10 @@
+import { createCart } from '@/lib/shopifyQueries'
 import Image from 'next/image'
 
 type ProductCardProps = {
   title: string
   description: string
   image: string | null
-  handle: string
   price: string
 }
 
@@ -12,7 +12,6 @@ export default function ProductCard({
   title,
   description,
   image,
-  handle,
   price,
 }: ProductCardProps) {
   return (
@@ -32,12 +31,14 @@ export default function ProductCard({
         <p className="text-sm text-gray-800 font-semibold mt-2">
           £ {Number(price).toFixed(2)}
         </p>
-        <a
-          href={`/products/${handle}`}
-          className="inline-block mt-4 px-4 py-2 bg-zinc-600 text-white text-sm font-medium rounded hover:bg-zinc-700 transition-colors"
-        >
-          Add to cart
-        </a>
+        <form action={createCart}>
+          <button
+            type={'submit'}
+            className="inline-block mt-4 px-4 py-2 bg-zinc-600 text-white text-sm font-medium rounded hover:bg-zinc-700 transition-colors"
+          >
+            Add to cart
+          </button>
+        </form>
       </div>
     </div>
   )

@@ -9,12 +9,13 @@ import ProductCard from '@/components/productCard'
 const getProducts = async (): Promise<Product[]> => {
   const { data } = await shopify.request(getAllProducts)
 
+  console.log('data', data)
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return data.products.edges.map((product: any) => ({
     id: product.node.id,
     title: product.node.title,
     description: product.node.description,
-    handle: product.node.handle,
     image: product.node.images.edges[0]?.node.src || null,
     price: product.node.priceRange.minVariantPrice.amount,
   }))
@@ -45,7 +46,6 @@ export default async function Home() {
             title={product.title}
             description={product.description}
             image={product.image}
-            handle={product.handle}
             price={product.price}
           />
         ))}
