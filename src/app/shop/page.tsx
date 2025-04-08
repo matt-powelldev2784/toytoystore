@@ -1,25 +1,7 @@
-import { shopify } from '@/lib/shopify'
-import { getAllProducts } from '@/lib/shopifyQueries'
-import { Product } from '@/lib/types'
+import { getProducts } from '@/lib/shopifyQueries'
 import { type SanityDocument } from 'next-sanity'
 import { sanity } from '@/lib/sanity'
 import ProductCard from '@/components/productCard'
-
-// get products from Shopify
-const getProducts = async (): Promise<Product[]> => {
-  const { data } = await shopify.request(getAllProducts)
-
-  console.log('data', data)
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return data.products.edges.map((product: any) => ({
-    id: product.node.id,
-    title: product.node.title,
-    description: product.node.description,
-    image: product.node.images.edges[0]?.node.src || null,
-    price: product.node.priceRange.minVariantPrice.amount,
-  }))
-}
 
 // get promo information from Sanity
 const PROMO_QUERY = `*[_type == "promo"]{ _id, image,promoMessage,companyName}`
@@ -34,7 +16,6 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   const promoInfo = promo[0]
 
   console.log('products', products)
-  console.log('cartId', cartId)
 
   return (
     <main className="relative min-w-screen min-h-screen">
@@ -46,11 +27,13 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {products.map((product) => (
           <ProductCard
-            key={product.id}
+            key={product.variantId}
+            variantId={product.variantId}
             title={product.title}
             description={product.description}
             image={product.image}
             price={product.price}
+            cartId={cartId}
           />
         ))}
       </div>

@@ -1,19 +1,28 @@
-import { createCart } from '@/lib/shopifyQueries'
+import { addToCart } from '@/lib/shopifyQueries'
 import Image from 'next/image'
 
 type ProductCardProps = {
+  variantId: string
   title: string
   description: string
   image: string | null
   price: string
+  cartId: string
 }
 
-export default function ProductCard({
+export default async function ProductCard({
+  variantId,
   title,
   description,
   image,
   price,
+  cartId,
 }: ProductCardProps) {
+  const addToCartAction = async () => {
+    'use server'
+    await addToCart({ cartId, variantId, quantity: 1 })
+  }
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="relative w-full h-64">
@@ -31,7 +40,7 @@ export default function ProductCard({
         <p className="text-sm text-gray-800 font-semibold mt-2">
           £ {Number(price).toFixed(2)}
         </p>
-        <form action={createCart}>
+        <form action={addToCartAction}>
           <button
             type={'submit'}
             className="inline-block mt-4 px-4 py-2 bg-zinc-600 text-white text-sm font-medium rounded hover:bg-zinc-700 transition-colors"
