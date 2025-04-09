@@ -18,26 +18,15 @@ export default async function ProductCard({
   price,
 }: ProductCardProps) {
   const addToCartAction = async () => {
-    'use server'
+   'use server'
 
-    const cartId = await getCartIdFromCookie()
+   const cartId = await getCartIdFromCookie()
 
-    const updatedCart = await addToCart({
-      cartId: cartId || null,
-      variantId,
-      quantity: 1,
-    })
-    console.log(
-      '**************************************************************************'
-    )
-    console.log(
-      '**************************************************************************'
-    )
-    console.log(
-      '**************************************************************************'
-    )
-
-    console.log('updatedCart', updatedCart.lines)
+   const updatedCart = await addToCart({
+     cartId: cartId || null,
+     variantId,
+     quantity: 1,
+   })
 
     const updateCartId = updatedCart.id.split('?')[0]
 

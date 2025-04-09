@@ -82,38 +82,51 @@ export const addToCart = async ({
   variantId,
   quantity = 1,
 }: AddToCartProps) => {
-  if (!cartId) {
-    console.warn('No cartId provided. Creating a new cart...')
-    const newCart = await createCart()
-    cartId = newCart.id
-  }
-
   const mutation = `
-    mutation AddToCart($cartId: ID!, $lines: [CartLineInput!]!) {
-      cartLinesAdd(cartId: $cartId, lines: $lines) {
-        cart {
-          id
-          lines(first: 10) {
-            edges {
-              node {
+   mutation addCartLines($cartId: ID!, $lines: [CartLineInput!]!) {
+  cartLinesAdd(cartId: $cartId, lines: $lines) {
+    cart {
+      id
+      lines(first: 10){
+        edges
+        {
+          node{
+            quantity
+            merchandise{
+              ... on ProductVariant {
                 id
-                quantity
-                merchandise {
-                  ... on ProductVariant {
-                    id
-                    title
-                  }
-                }
               }
             }
           }
         }
-        userErrors {
-          field
-          message
+      }
+      cost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+        subtotalAmount {
+          amount
+          currencyCode
+        }
+        totalTaxAmount {
+          amount
+          currencyCode
+        }
+        totalDutyAmount {
+          amount
+          currencyCode
         }
       }
     }
+    
+    
+    userErrors {
+      field
+      message
+    }
+  }
+}
   `
 
   const requestPayload = {
@@ -131,7 +144,6 @@ export const addToCart = async ({
   const { data, errors } = await shopify.request(mutation, requestPayload)
   console.log('errors', errors)
 
-  console.log('Updated Cart:', data.cartLinesAdd.cart)
   return data.cartLinesAdd.cart
 }
 
@@ -141,9 +153,11 @@ export const getCart = async (cartId: string) => {
   }
 
   const query = `
-    query GetCart($cartId: ID!) {
+    query cartQuery($cartId: ID!) {
       cart(id: $cartId) {
         id
+        createdAt
+        updatedAt
         checkoutUrl
         lines(first: 100) {
           edges {
@@ -172,6 +186,36 @@ export const getCart = async (cartId: string) => {
             }
           }
         }
+        attributes {
+          key
+          value
+        }
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+          subtotalAmount {
+            amount
+            currencyCode
+          }
+          totalTaxAmount {
+            amount
+            currencyCode
+          }
+          totalDutyAmount {
+            amount
+            currencyCode
+          }
+        }
+        buyerIdentity {
+          email
+          phone
+          customer {
+            id
+          }
+          countryCode
+        }
       }
     }
   `
@@ -185,11 +229,11 @@ export const getCart = async (cartId: string) => {
   const { data, errors } = await shopify.request(query, requestPayload)
 
   console.log('errors', errors)
+  console.log('data.cart.lines.edges.length', data.cart.lines.edges.length)
 
   return {
     id: data.cart.id,
     checkoutUrl: data.cart.checkoutUrl,
-    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     items: data.cart.lines.edges.map((line: any) => ({
       id: line.node.id,
       quantity: line.node.quantity,
