@@ -69,8 +69,10 @@ export const createCart = async () => {
   return data.cartCreate.cart
 }
 
+
+
 type AddToCartProps = {
-  cartId: string
+  cartId: string | null
   variantId: string
   quantity?: number
 }
@@ -80,6 +82,12 @@ export const addToCart = async ({
   variantId,
   quantity = 1,
 }: AddToCartProps) => {
+  if (!cartId) {
+    console.warn('No cartId provided. Creating a new cart...')
+    const newCart = await createCart()
+    cartId = newCart.id
+  }
+
   const mutation = `
     mutation AddToCart($cartId: ID!, $lines: [CartLineInput!]!) {
       cartLinesAdd(cartId: $cartId, lines: $lines) {
@@ -121,10 +129,8 @@ export const addToCart = async ({
   }
 
   const { data, errors } = await shopify.request(mutation, requestPayload)
-  console.log('data', data)
   console.log('errors', errors)
 
-  console.log('data.cartLinesAdd.cart', data.cartLinesAdd.cart)
-
+  console.log('Updated Cart:', data.cartLinesAdd.cart)
   return data.cartLinesAdd.cart
 }

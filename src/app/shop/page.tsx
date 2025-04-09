@@ -7,15 +7,13 @@ import ProductCard from '@/components/productCard'
 const PROMO_QUERY = `*[_type == "promo"]{ _id, image,promoMessage,companyName}`
 const options = { next: { revalidate: 30 } }
 
-type ShopPageProps = { searchParams: { cartId: string } }
 
-export default async function ShopPage({ searchParams }: ShopPageProps) {
-  const cartId = searchParams.cartId
+export default async function ShopPage() {
   const products = await getProducts()
   const promo = await sanity.fetch<SanityDocument[]>(PROMO_QUERY, {}, options)
   const promoInfo = promo[0]
 
-  console.log('products', products)
+  // console.log('products', products)
 
   return (
     <main className="relative min-w-screen min-h-screen">
@@ -33,7 +31,6 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
             description={product.description}
             image={product.image}
             price={product.price}
-            cartId={cartId}
           />
         ))}
       </div>
