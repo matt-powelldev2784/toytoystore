@@ -1,5 +1,5 @@
 import { getCartIdFromCookie, setCartIdCookie } from '@/lib/cartCookie'
-import { addToCart } from '@/lib/shopifyQueries'
+import { addToCart, getCart } from '@/lib/shopifyQueries'
 import Image from 'next/image'
 
 type ProductCardProps = {
@@ -27,9 +27,24 @@ export default async function ProductCard({
       variantId,
       quantity: 1,
     })
+    console.log(
+      '**************************************************************************'
+    )
+    console.log(
+      '**************************************************************************'
+    )
+    console.log(
+      '**************************************************************************'
+    )
+
+    console.log('updatedCart', updatedCart.lines)
 
     const updateCartId = updatedCart.id.split('?')[0]
+
     await setCartIdCookie(updateCartId)
+
+    const cart = await getCart(updateCartId)
+    console.log('cart', cart)
   }
 
   return (

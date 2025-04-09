@@ -134,3 +134,71 @@ export const addToCart = async ({
   console.log('Updated Cart:', data.cartLinesAdd.cart)
   return data.cartLinesAdd.cart
 }
+
+export const getCart = async (cartId: string) => {
+  if (!cartId) {
+    throw new Error('Cart ID is required to fetch the cart.')
+  }
+
+  const query = `
+    query GetCart($cartId: ID!) {
+      cart(id: $cartId) {
+        id
+        checkoutUrl
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              cost {
+                amountPerQuantity {
+                  amount
+                  currencyCode
+                }
+                totalAmount {
+                  amount
+                  currencyCode
+                }
+              }
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  product {
+                    title
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const requestPayload = {
+    variables: {
+      cartId,
+    },
+  }
+
+  const { data, errors } = await shopify.request(query, requestPayload)
+
+  console.log('errors', errors)
+
+  return {
+    id: data.cart.id,
+    checkoutUrl: data.cart.checkoutUrl,
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
+    items: data.cart.lines.edges.map((line: any) => ({
+      id: line.node.id,
+      quantity: line.node.quantity,
+      pricePerItem: line.node.cost.amountPerQuantity.amount,
+      totalPrice: line.node.cost.totalAmount.amount,
+      currencyCode: line.node.cost.amountPerQuantity.currencyCode,
+      variantId: line.node.merchandise.id,
+      title: line.node.merchandise.title,
+      productTitle: line.node.merchandise.product.title,
+    })),
+  }
+}
