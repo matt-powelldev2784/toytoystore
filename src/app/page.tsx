@@ -7,8 +7,7 @@ import { redirect } from 'next/navigation'
 const addCartCookie = async () => {
   'use server'
   const cart = await createCart()
-  const cartId = cart.id.split('?')[0]
-  await setCartIdCookie(cartId)
+  await setCartIdCookie(cart.id)
   redirect('/shop')
 }
 

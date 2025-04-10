@@ -1,5 +1,5 @@
 import { getCartIdFromCookie, setCartIdCookie } from '@/lib/cartCookie'
-import { addToCart, getCart } from '@/lib/shopifyQueries'
+import { addToCart, createCart, getCart } from '@/lib/shopifyQueries'
 import Image from 'next/image'
 
 type ProductCardProps = {
@@ -18,21 +18,23 @@ export default async function ProductCard({
   price,
 }: ProductCardProps) {
   const addToCartAction = async () => {
-   'use server'
+    'use server'
 
-   const cartId = await getCartIdFromCookie()
+    let cartId = await getCartIdFromCookie()
+    if (!cartId) {
+      const cart = await createCart()
+      await setCartIdCookie(cart.id)
+      cartId = cart.id
+    }
 
-   const updatedCart = await addToCart({
-     cartId: cartId || null,
-     variantId,
-     quantity: 1,
-   })
+    if (typeof cartId !== 'string') return
+    await addToCart({
+      cartId: cartId,
+      variantId,
+      quantity: 1,
+    })
 
-    const updateCartId = updatedCart.id.split('?')[0]
-
-    await setCartIdCookie(updateCartId)
-
-    const cart = await getCart(updateCartId)
+    const cart = await getCart(cartId)
     console.log('cart', cart)
   }
 

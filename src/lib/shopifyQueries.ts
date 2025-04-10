@@ -72,7 +72,7 @@ export const createCart = async () => {
 
 
 type AddToCartProps = {
-  cartId: string | null
+  cartId: string
   variantId: string
   quantity?: number
 }
@@ -234,6 +234,7 @@ export const getCart = async (cartId: string) => {
   return {
     id: data.cart.id,
     checkoutUrl: data.cart.checkoutUrl,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     items: data.cart.lines.edges.map((line: any) => ({
       id: line.node.id,
       quantity: line.node.quantity,
