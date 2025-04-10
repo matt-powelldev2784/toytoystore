@@ -21,7 +21,7 @@ export default async function Home() {
   const promoInfo = promo[0]
 
   return (
-    <main className="flex flex-col items-center justify-center p-8 h-full">
+    <section className="flex flex-col items-center justify-center p-8 h-full">
       {promoInfo.image && (
         <img
           src={urlFor(promoInfo.image).width(200).url()}
@@ -40,6 +40,6 @@ export default async function Home() {
           Enter Store
         </button>
       </form>
-    </main>
+    </section>
   )
 }

@@ -2,6 +2,7 @@ import { getCart, getProducts } from '@/lib/shopifyQueries'
 import ProductCard from '@/components/productCard'
 import { getCartIdFromCookie } from '@/lib/cartCookie'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 const getCartId = async () => {
   const cartId = await getCartIdFromCookie()
@@ -19,12 +20,12 @@ export default async function ShopPage() {
   // console.log('products', products)
 
   return (
-    <main className="relative min-w-screen min-h-screen">
+    <section className="relative min-w-screen min-h-screen mb-24">
       <div className="relative z-10 text-left text-black p-8">
         <h2 className="text-4xl font-bold">Products</h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 px-4 sm:px-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8 px-4 sm:px-12">
         {products.map((product) => (
           <ProductCard
             key={product.variantId}
@@ -36,6 +37,15 @@ export default async function ShopPage() {
           />
         ))}
       </div>
-    </main>
+
+      <div className="w-full flex flex-col items-center justify-center">
+        <Link
+          href={cart.checkoutUrl}
+          className="bg-red-500 rounded p-2 text-white mt-4 md:mt-8 "
+        >
+          Checkout
+        </Link>
+      </div>
+    </section>
   )
 }
