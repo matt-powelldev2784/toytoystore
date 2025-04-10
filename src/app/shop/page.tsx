@@ -42,6 +42,9 @@ export default async function ShopPage() {
         >
           Checkout
         </Link>
+
+        <p>Password to test shop:</p>
+        <p>toyshop</p>
       </div>
     </section>
   )
