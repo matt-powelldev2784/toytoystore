@@ -15,9 +15,6 @@ export default async function ShopPage() {
   if (!cartId) redirect('/')
   const cart = await getCart(cartId)
 
-  console.log('cart', cart)
-
-  // console.log('products', products)
 
   return (
     <section className="relative min-w-screen min-h-screen mb-24">

@@ -139,15 +139,12 @@ export const addToCart = async ({
     },
   }
 
-  const { data, errors } = await shopify.request(mutation, requestPayload)
-  console.log('errors', errors)
+  const { data } = await shopify.request(mutation, requestPayload)
 
   return data.cartLinesAdd.cart
 }
 
 export const getCart = async (cartId: string) => {
-  console.log('cartId', cartId)
-
   if (!cartId) {
     throw new Error('Cart ID is required to fetch the cart.')
   }
