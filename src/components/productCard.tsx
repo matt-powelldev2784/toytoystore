@@ -1,5 +1,5 @@
 import { getCartIdFromCookie, setCartIdCookie } from '@/lib/cartCookie'
-import { addToCart, createCart, getCart } from '@/lib/shopifyQueries'
+import { addToCart, createCart } from '@/lib/shopifyQueries'
 import Image from 'next/image'
 
 type ProductCardProps = {
@@ -33,9 +33,6 @@ export default async function ProductCard({
       variantId,
       quantity: 1,
     })
-
-    const cart = await getCart(cartId)
-    console.log('cart', cart)
   }
 
   return (
