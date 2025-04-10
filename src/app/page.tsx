@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import { type SanityDocument } from 'next-sanity'
-import { sanity } from '@/lib/sanity'
+import { sanity, urlFor } from '@/lib/sanity'
 import { createCart } from '@/lib/shopifyQueries'
 import { setCartIdCookie } from '@/lib/cartCookie'
 import { redirect } from 'next/navigation'
@@ -20,9 +21,17 @@ export default async function Home() {
   const promoInfo = promo[0]
 
   return (
-    <main className="flex flex-col items-center justify-center bg-gray-100 p-8  h-screen">
+    <main className="flex flex-col items-center justify-center p-8 h-full">
+      {promoInfo.image && (
+        <img
+          src={urlFor(promoInfo.image).width(200).url()} // Only set the width
+          alt={promoInfo.companyName}
+        />
+      )}
+
       <h1 className="text-4xl font-bold mb-8">{promoInfo.companyName}</h1>
       <p className="text-lg">{promoInfo.promoMessage}</p>
+
       <form action={initializeCart}>
         <button
           type="submit"
