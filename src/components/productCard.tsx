@@ -36,8 +36,8 @@ export default async function ProductCard({
   }
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-      <div className="relative w-full h-64">
+    <article className="bg-white border-2 border-zinc-200 rounded-lg overflow-hidden p-4">
+      <div className="relative w-full h-48">
         {image ? (
           <Image src={image} alt={title} fill />
         ) : (
@@ -46,12 +46,16 @@ export default async function ProductCard({
           </div>
         )}
       </div>
+
       <div className="p-4">
         <h2 className="text-lg font-bold text-gray-800 truncate">{title}</h2>
+
         <p className="text-sm text-gray-600 mt-2 line-clamp-2">{description}</p>
+
         <p className="text-sm text-gray-800 font-semibold mt-2">
           £ {Number(price).toFixed(2)}
         </p>
+
         <form action={addToCartAction}>
           <button
             type={'submit'}
@@ -61,6 +65,6 @@ export default async function ProductCard({
           </button>
         </form>
       </div>
-    </div>
+    </article>
   )
 }

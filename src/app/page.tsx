@@ -24,7 +24,7 @@ export default async function Home() {
     <main className="flex flex-col items-center justify-center p-8 h-full">
       {promoInfo.image && (
         <img
-          src={urlFor(promoInfo.image).width(200).url()} // Only set the width
+          src={urlFor(promoInfo.image).width(200).url()}
           alt={promoInfo.companyName}
         />
       )}
