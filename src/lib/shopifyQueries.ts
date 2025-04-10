@@ -69,8 +69,6 @@ export const createCart = async () => {
   return data.cartCreate.cart
 }
 
-
-
 type AddToCartProps = {
   cartId: string
   variantId: string
@@ -148,6 +146,8 @@ export const addToCart = async ({
 }
 
 export const getCart = async (cartId: string) => {
+  console.log('cartId', cartId)
+
   if (!cartId) {
     throw new Error('Cart ID is required to fetch the cart.')
   }
@@ -228,8 +228,13 @@ export const getCart = async (cartId: string) => {
 
   const { data, errors } = await shopify.request(query, requestPayload)
 
-  console.log('errors', errors)
-  console.log('data.cart.lines.edges.length', data.cart.lines.edges.length)
+  if (!data.cart) {
+    return { message: 'Invalid cart id', error: 500 }
+  }
+
+  if (errors) {
+    return { message: 'Error fetching cart data', error: 500 }
+  }
 
   return {
     id: data.cart.id,

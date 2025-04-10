@@ -18,3 +18,9 @@ export const getCartIdFromCookie = async (): Promise<string | undefined> => {
   const cookieStore = await cookies()
   return cookieStore.get('cartId')?.value
 }
+
+export const deleteCartIdCookie = async () => {
+  'use server'
+  const cookieStore = await cookies()
+  cookieStore.delete('cartId')
+}

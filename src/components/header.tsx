@@ -6,7 +6,6 @@ import { SanityDocument } from 'next-sanity'
 import Link from 'next/link'
 import React from 'react'
 
-//get cart id from Shopify
 const getCartDetails = async () => {
   const cartId = await getCartIdFromCookie()
   if (!cartId) return null
@@ -29,7 +28,7 @@ export default async function Header() {
         {promoInfo.companyName}
       </h1>
 
-      {cart && (
+      {cart?.checkoutUrl && (
         <Link href={cart.checkoutUrl}>
           <img
             src="cart_white.svg"
