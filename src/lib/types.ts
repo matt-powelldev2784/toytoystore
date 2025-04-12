@@ -7,3 +7,12 @@ export type Product = {
   image: string | null
   price: string
 }
+
+export type CartItem = {
+  id: string
+  variantId: string
+  title: string
+  price: string
+  quantity: number
+  image?: string | null
+}
