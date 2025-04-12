@@ -5,6 +5,7 @@ import { getCartIdFromCookie } from '@/lib/cartCookie'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { CartItem } from '@/lib/types'
+import ServerButton from '@/components/ServerButton'
 
 const getCartId = async () => {
   const cartId = await getCartIdFromCookie()
@@ -54,12 +55,11 @@ export default async function ShopPage() {
       </div>
 
       <div className="w-full flex flex-col items-center justify-center">
-        <Link
+        <ServerButton
           href={cart.checkoutUrl}
-          className="bg-red-500 rounded p-2 text-white mt-4 md:mt-8 "
-        >
-          Checkout
-        </Link>
+          text="Checkout"
+          disabled={numberOfCartItems === 0 ? true : false}
+        />
 
         <p>Password to test shop:</p>
         <p>toyshop</p>

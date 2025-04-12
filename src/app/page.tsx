@@ -4,6 +4,7 @@ import { sanity, urlFor } from '@/lib/sanity'
 import { createCart } from '@/lib/shopifyQueries'
 import { setCartIdCookie } from '@/lib/cartCookie'
 import { redirect } from 'next/navigation'
+import ServerButton from '@/components/ServerButton'
 
 const initializeCart = async () => {
   'use server'
@@ -32,14 +33,7 @@ export default async function Home() {
       <h1 className="text-4xl font-bold mb-8">{promoInfo.companyName}</h1>
       <p className="text-lg">{promoInfo.promoMessage}</p>
 
-      <form action={initializeCart}>
-        <button
-          type="submit"
-          className="bg-red-500 rounded p-2 text-white mt-8"
-        >
-          Enter Store
-        </button>
-      </form>
+      <ServerButton onClick={initializeCart} text="Enter Store" />
     </section>
   )
 }
