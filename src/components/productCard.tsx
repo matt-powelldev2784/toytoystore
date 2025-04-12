@@ -1,6 +1,7 @@
-import { getCartIdFromCookie, setCartIdCookie } from '@/lib/cartCookie'
-import { addToCart, createCart } from '@/lib/shopifyQueries'
+import { getCartIdFromCookie } from '@/lib/cartCookie'
 import Image from 'next/image'
+import AddToCartButton from './addToCartButton'
+import { redirect } from 'next/navigation'
 
 type ProductCardProps = {
   variantId: string
@@ -17,26 +18,11 @@ export default async function ProductCard({
   image,
   price,
 }: ProductCardProps) {
-  const addToCartAction = async () => {
-    'use server'
-
-    let cartId = await getCartIdFromCookie()
-    if (!cartId) {
-      const cart = await createCart()
-      await setCartIdCookie(cart.id)
-      cartId = cart.id
-    }
-
-    if (typeof cartId !== 'string') return
-    await addToCart({
-      cartId: cartId,
-      variantId,
-      quantity: 1,
-    })
-  }
+  const cartId = await getCartIdFromCookie()
+  if (!cartId) redirect('/')
 
   return (
-    <article className="bg-white border-2 border-zinc-200 rounded-lg overflow-hidden p-4">
+    <article className="bg-zinc-100 rounded-lg overflow-hidden p-4">
       <div className="relative w-full h-48">
         {image ? (
           <Image src={image} alt={title} fill />
@@ -50,20 +36,13 @@ export default async function ProductCard({
       <div className="p-4">
         <h2 className="text-lg font-bold text-gray-800 truncate">{title}</h2>
 
-        <p className="text-sm text-gray-600 mt-2 line-clamp-2">{description}</p>
+        <p className="text-sm text-gray-600 line-clamp-2">{description}</p>
 
-        <p className="text-sm text-gray-800 font-semibold mt-2">
+        <p className="text-sm text-gray-800 font-semibold">
           £ {Number(price).toFixed(2)}
         </p>
 
-        <form action={addToCartAction}>
-          <button
-            type={'submit'}
-            className="inline-block mt-4 px-4 py-2 bg-zinc-600 text-white text-sm font-medium rounded hover:bg-zinc-700 transition-colors"
-          >
-            Add to cart
-          </button>
-        </form>
+        <AddToCartButton cartId={cartId} variantId={variantId} />
       </div>
     </article>
   )

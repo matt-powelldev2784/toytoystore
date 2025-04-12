@@ -1,3 +1,5 @@
+'use server'
+
 import { shopify } from './shopify'
 import { Product } from './types'
 
@@ -52,7 +54,6 @@ export const getProducts = async (): Promise<Product[]> => {
 }
 
 export const createCart = async () => {
-  'use server'
   const mutation = `
     mutation CreateCart {
       cartCreate {
