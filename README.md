@@ -6,11 +6,13 @@ https://toytoystore.vercel.app/
 
 
 ## About this project
-App built with NextJS, Sanity CMS, TypeScript and Shopify
+App built with NextJS, TypeScript, Sanity CMS, and Shopify.
 
-*  All Pages are server-side rendered using Next.js.
+*  All Pages are server-side rendered using NextJS.
+*  Server actions are used to handle user interactions with the app.
 *  Some client side components are used at the edge of the tree for user interactivity.
-*  All data is fetched using the Shopify Storefront API using GraphQL queries.
+*  All Shopify data is fetched using the Shopify Storefront API using GraphQL queries.
+*  Sanity CMS is used to manage the promotional content in the app.
 
 ## Testing
 
