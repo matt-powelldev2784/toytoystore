@@ -1,17 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { type SanityDocument } from 'next-sanity'
 import { sanity, urlFor } from '@/lib/sanity'
-import { createCart } from '@/lib/shopifyQueries'
-import { setCartIdCookie } from '@/lib/cartCookie'
-import { redirect } from 'next/navigation'
 import ServerButton from '@/components/ServerButton'
-
-const initializeCart = async () => {
-  'use server'
-  const cart = await createCart()
-  await setCartIdCookie(cart.id)
-  redirect('/shop')
-}
+import { initializeCart } from '@/lib/actions'
 
 // get promo information from Sanity
 const PROMO_QUERY = `*[_type == "promo"]{ _id, image,promoMessage,companyName}`

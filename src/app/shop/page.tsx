@@ -54,8 +54,8 @@ export default async function ShopPage() {
           disabled={numberOfCartItems === 0}
         />
 
-        <p>Password to test shop:</p>
-        <p>toyshop</p>
+        <p className="text-zinc-600 text-sm mt-2">Password to test shop:</p>
+        <p className="text-zinc-600 text-sm">toyshop</p>
       </div>
     </section>
   )

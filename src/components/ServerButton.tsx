@@ -2,7 +2,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useTransition } from 'react'
+import { useFormStatus } from 'react-dom'
 
 type EnterStoreButtonProps = {
   onClick?: () => Promise<void>
@@ -17,23 +17,21 @@ export default function ServerButton({
   text,
   disabled,
 }: EnterStoreButtonProps) {
-  const [isPending, startTransition] = useTransition()
+  const { pending } = useFormStatus()
   const router = useRouter()
 
-  const handleClick = () => {
-    startTransition(async () => {
-      if (onClick) return await onClick()
-      if (href) router.push(href)
-    })
+  const handleClick = async () => {
+    if (onClick) return await onClick()
+    if (href) router.push(href)
   }
 
   return (
     <button
       onClick={handleClick}
-      disabled={disabled || isPending}
+      disabled={disabled || pending}
       className={`bg-red-500 rounded p-2 text-white mt-8 w-[200px] ${disabled ? 'opacity-50' : ''}`}
     >
-      {isPending ? (
+      {pending ? (
         <img
           src="loading_red.svg"
           alt="loading"

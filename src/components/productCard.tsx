@@ -3,6 +3,7 @@ import Image from 'next/image'
 import AddToCartButton from './addToCartButton'
 import { redirect } from 'next/navigation'
 import { Product } from '@/lib/types'
+import { handleAddToCart } from '@/lib/actions'
 
 export default async function ProductCard({
   variantId,
@@ -35,7 +36,11 @@ export default async function ProductCard({
           £ {Number(price).toFixed(2)}
         </p>
 
-        <AddToCartButton cartId={cartId} variantId={variantId} />
+        <form action={handleAddToCart}>
+          <input type="hidden" name="cartId" value={cartId} />
+          <input type="hidden" name="variantId" value={variantId} />
+          <AddToCartButton />
+        </form>
       </div>
     </article>
   )
