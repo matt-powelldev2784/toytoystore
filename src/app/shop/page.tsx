@@ -43,14 +43,7 @@ export default async function ShopPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8 px-4 sm:px-12">
         {products.map((product) => (
-          <ProductCard
-            key={product.variantId}
-            variantId={product.variantId}
-            title={product.title}
-            description={product.description}
-            image={product.image}
-            price={product.price}
-          />
+          <ProductCard key={product.variantId} {...product} />
         ))}
       </div>
 
@@ -58,7 +51,7 @@ export default async function ShopPage() {
         <ServerButton
           href={cart.checkoutUrl}
           text="Checkout"
-          disabled={numberOfCartItems === 0 ? true : false}
+          disabled={numberOfCartItems === 0}
         />
 
         <p>Password to test shop:</p>
