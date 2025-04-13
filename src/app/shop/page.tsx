@@ -9,13 +9,13 @@ import ServerButton from '@/components/ServerButton'
 import { navigateToCheckout } from '@/lib/actions'
 
 export default async function ShopPage() {
-  const products = await getProducts()
-
   const cartId = await getCartIdFromCookie()
   if (!cartId) redirect('/')
 
   const cart = await getCart(cartId)
   if (cart.error) redirect('/')
+
+  const products = await getProducts()
 
   const numberOfCartItems = cart.items.reduce((acc: number, item: CartItem) => {
     return acc + item.quantity
