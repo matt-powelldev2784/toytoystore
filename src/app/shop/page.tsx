@@ -20,6 +20,8 @@ export default async function ShopPage() {
   if (!cartId) redirect('/')
 
   const cart = await getCart(cartId)
+  if (cart.error) redirect('/')
+
   const numberOfCartItems = cart.items.reduce((acc: number, item: CartItem) => {
     return acc + item.quantity
   }, 0)
@@ -57,7 +59,7 @@ export default async function ShopPage() {
         className="w-full flex flex-col items-center justify-center px-4"
       >
         <input type="hidden" name="checkoutUrl" value={cart.checkoutUrl} />
-        
+
         <ServerButton text="Checkout" disabled={numberOfCartItems === 0} />
 
         <p className="text-zinc-600 text-sm mt-2 text-center">
