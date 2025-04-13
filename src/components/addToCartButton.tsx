@@ -2,7 +2,7 @@
 'use client'
 
 import { addToCart } from '@/lib/shopifyQueries'
-import { useRouter } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 import { useState } from 'react'
 
 type AddToCartButtonProps = {
@@ -15,7 +15,6 @@ export default function AddToCartButton({
   variantId,
 }: AddToCartButtonProps) {
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const handleAddToCart = async () => {
     if (loading) return
@@ -28,12 +27,7 @@ export default function AddToCartButton({
         quantity: 1,
       })
 
-      await fetch('/api/revalidate', {
-        method: 'POST',
-        body: JSON.stringify({ path: '/shop' }),
-      })
-
-      router.refresh()
+      revalidatePath('/shop')
     } catch (error) {
       console.error('Error adding cart item', error)
     } finally {
