@@ -13,7 +13,7 @@ export default async function Header() {
   const promoInfo = promo[0]
 
   return (
-    <header className="flex flex-row items-center justify-between p-4 sm:p-6 h-10 sm:h-14 bg-red-500">
+    <header className="sticky top-0 flex flex-row items-center justify-between p-4 sm:p-6 h-10 sm:h-14 bg-red-500 z-1100">
       <Link href="/" className="flex items-center">
         <img
           src="toyshop_logo.svg"
