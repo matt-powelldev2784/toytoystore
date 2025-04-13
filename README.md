@@ -22,6 +22,7 @@ App built with NextJS, TypeScript, Sanity CMS, and Shopify.
 * NextJS Documentation: https://nextjs.org/docs
 * NextJS Server Actions: https://www.youtube.com/watch?v=RadgkoJrhu0
 * Shopify Graph QL queries: https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme
+* Shopify Storefront API: https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme
 * Shopify API Reference: https://shopify.dev/docs/api/storefront
 
 
