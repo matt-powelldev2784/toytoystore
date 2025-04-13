@@ -2,14 +2,7 @@ import { getCartIdFromCookie } from '@/lib/cartCookie'
 import Image from 'next/image'
 import AddToCartButton from './addToCartButton'
 import { redirect } from 'next/navigation'
-
-type ProductCardProps = {
-  variantId: string
-  title: string
-  description: string
-  image: string | null
-  price: string
-}
+import { Product } from '@/lib/types'
 
 export default async function ProductCard({
   variantId,
@@ -17,7 +10,7 @@ export default async function ProductCard({
   description,
   image,
   price,
-}: ProductCardProps) {
+}: Product) {
   const cartId = await getCartIdFromCookie()
   if (!cartId) redirect('/')
 
