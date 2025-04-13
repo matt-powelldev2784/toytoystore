@@ -54,14 +54,13 @@ export default async function ShopPage() {
         className="w-full flex flex-col items-center justify-center px-4"
       >
         <input type="hidden" name="checkoutUrl" value={cart.checkoutUrl} />
-
         <ServerButton text="Checkout" disabled={numberOfCartItems === 0} />
-
-        <p className="text-zinc-600 text-sm mt-2 text-center">
-          Password to test shop:
-        </p>
-        <p className="text-zinc-600 text-sm text-center">toyshop</p>
       </form>
+
+      <p className="text-zinc-600 text-sm mt-2 text-center">
+        Password to test shop:
+      </p>
+      <p className="text-zinc-600 text-sm text-center">toyshop</p>
     </section>
   )
 }
