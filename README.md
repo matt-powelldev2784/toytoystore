@@ -12,5 +12,9 @@ App built with NextJS, Sanity CMS, TypeScript, Shopify
 *  Some client side components are used at the edge of the tree for user interactivity.
 *  All data is fetched using the Shopify Storefront API using GraphQL queries.
 
+Resourced used:
+https://github.com/Shopify/storefront-api-learning-kit
+
+
 
 
