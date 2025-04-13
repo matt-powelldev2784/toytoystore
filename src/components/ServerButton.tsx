@@ -31,7 +31,7 @@ export default function ServerButton({
     >
       {pending ? (
         <img
-          src="loading_red.svg"
+          src="/loading_white.svg"
           alt="loading"
           className="w-4 h-4 animate-spin flex justify-center items-center mx-auto"
         />
