@@ -1,9 +1,9 @@
 import { getCartIdFromCookie } from '@/lib/cartCookie'
 import Image from 'next/image'
-import AddToCartButton from './addToCartButton'
 import { redirect } from 'next/navigation'
 import { Product } from '@/lib/types'
 import { handleAddToCart } from '@/lib/actions'
+import ServerButton from './ServerButton'
 
 export default async function ProductCard({
   variantId,
@@ -39,7 +39,7 @@ export default async function ProductCard({
         <form action={handleAddToCart}>
           <input type="hidden" name="cartId" value={cartId} />
           <input type="hidden" name="variantId" value={variantId} />
-          <AddToCartButton />
+          <ServerButton text={'Add to Cart'} variant="grey" />
         </form>
       </div>
     </article>

@@ -31,7 +31,11 @@ export default async function Home() {
         action={initializeCart}
         className="w-full flex flex-col items-center justify-center mt-4 px-4"
       >
-        <ServerButton text="Enter Store" />
+        <ServerButton
+          text="Enter Store"
+          variant="red"
+          className="sm:max-w-[320px]"
+        />
       </form>
     </section>
   )

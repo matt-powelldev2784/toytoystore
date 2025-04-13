@@ -51,10 +51,15 @@ export default async function ShopPage() {
 
       <form
         action={navigateToCheckout}
-        className="w-full flex flex-col items-center justify-center px-4"
+        className="flex flex-col items-center justify-center w-full px-4 sm:px-12"
       >
         <input type="hidden" name="checkoutUrl" value={cart.checkoutUrl} />
-        <ServerButton text="Checkout" disabled={numberOfCartItems === 0} />
+        <ServerButton
+          text="Checkout"
+          disabled={numberOfCartItems === 0}
+          variant="red"
+          className="sm:max-w-[320px]"
+        />
       </form>
 
       <p className="text-zinc-600 text-sm mt-2 text-center">

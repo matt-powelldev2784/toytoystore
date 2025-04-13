@@ -3,21 +3,31 @@
 
 import { useFormStatus } from 'react-dom'
 
+const variants = {
+  default: 'rounded p-2 text-white mt-8 w-full h-10 cursor-pointer',
+  red: 'bg-red-500',
+  grey: 'bg-zinc-700 ',
+}
+
 type EnterStoreButtonProps = {
   text: string
   disabled?: boolean
+  variant: keyof typeof variants
+  className?: string
 }
 
 export default function ServerButton({
   text,
   disabled,
+  variant,
+  className,
 }: EnterStoreButtonProps) {
   const { pending } = useFormStatus()
 
   return (
     <button
       disabled={disabled || pending}
-      className={`bg-red-500 rounded p-2 text-white mt-8 w-full sm:w-44 h-10 cursor-pointer ${disabled ? 'opacity-50' : ''}`}
+      className={`${variants.default} ${variants[variant]} ${className} ${disabled ? 'opacity-50' : ''}`}
     >
       {pending ? (
         <img
