@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { CartItem } from '@/lib/types'
 import ServerButton from '@/components/ServerButton'
+import { navigateToCheckout } from '@/lib/actions'
 
 const getCartId = async () => {
   const cartId = await getCartIdFromCookie()
@@ -51,16 +52,19 @@ export default async function ShopPage() {
         ))}
       </div>
 
-      <div className="w-full flex flex-col items-center justify-center">
-        <ServerButton
-          href={cart.checkoutUrl}
-          text="Checkout"
-          disabled={numberOfCartItems === 0}
-        />
+      <form
+        action={navigateToCheckout}
+        className="w-full flex flex-col items-center justify-center px-4"
+      >
+        <input type="hidden" name="checkoutUrl" value={cart.checkoutUrl} />
+        
+        <ServerButton text="Checkout" disabled={numberOfCartItems === 0} />
 
-        <p className="text-zinc-600 text-sm mt-2">Password to test shop:</p>
-        <p className="text-zinc-600 text-sm">toyshop</p>
-      </div>
+        <p className="text-zinc-600 text-sm mt-2 text-center">
+          Password to test shop:
+        </p>
+        <p className="text-zinc-600 text-sm text-center">toyshop</p>
+      </form>
     </section>
   )
 }

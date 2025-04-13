@@ -27,3 +27,8 @@ export const initializeCart = async () => {
   await setCartIdCookie(cart.id)
   redirect('/shop')
 }
+
+export const navigateToCheckout = async (formData: FormData) => {
+  redirect(formData.get('checkoutUrl') as string)
+}
+

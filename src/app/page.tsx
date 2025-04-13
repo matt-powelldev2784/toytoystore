@@ -13,18 +13,24 @@ export default async function Home() {
   const promoInfo = promo[0]
 
   return (
-    <section className="flex flex-col items-center justify-center p-8 h-full">
+    <section className="flex flex-col items-center justify-center h-full">
       {promoInfo.image && (
         <img
           src={urlFor(promoInfo.image).width(200).url()}
           alt={promoInfo.companyName}
+          className="mt-8"
         />
       )}
 
-      <h1 className="text-4xl font-bold mb-8">{promoInfo.companyName}</h1>
-      <p className="text-lg">{promoInfo.promoMessage}</p>
+      <h1 className="text-4xl font-bold mb-8 text-center px-4">
+        {promoInfo.companyName}
+      </h1>
+      <p className="text-lg text-center">{promoInfo.promoMessage}</p>
 
-      <form action={initializeCart}>
+      <form
+        action={initializeCart}
+        className="w-full flex flex-col items-center justify-center mt-4 px-4"
+      >
         <ServerButton text="Enter Store" />
       </form>
     </section>
