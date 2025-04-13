@@ -30,7 +30,7 @@ export default async function ShopPage() {
       {numberOfCartItems > 0 && (
         <Link
           href={cart.checkoutUrl}
-          className="fixed top-0 right-4 flex items-center justify-center h-10 sm:h-14 z-2100"
+          className="fixed top-0 right-8 flex items-center justify-center h-10 sm:h-14 z-2100"
         >
           <p className="p-2 text-white font-bold text-2xl">
             {numberOfCartItems}
