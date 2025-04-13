@@ -8,15 +8,10 @@ import { CartItem } from '@/lib/types'
 import ServerButton from '@/components/ServerButton'
 import { navigateToCheckout } from '@/lib/actions'
 
-const getCartId = async () => {
-  const cartId = await getCartIdFromCookie()
-  return cartId
-}
-
 export default async function ShopPage() {
   const products = await getProducts()
 
-  const cartId = await getCartId()
+  const cartId = await getCartIdFromCookie()
   if (!cartId) redirect('/')
 
   const cart = await getCart(cartId)
