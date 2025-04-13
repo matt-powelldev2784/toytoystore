@@ -19,7 +19,11 @@ App built with NextJS, TypeScript, Sanity CMS, and Shopify.
 * Playwright end to end test added, this checks a user can add products and checkout 
 
 Resourced used:
-https://github.com/Shopify/storefront-api-learning-kit
+NextJS Documentation: https://nextjs.org/docs
+NextJS Server Actions: https://www.youtube.com/watch?v=RadgkoJrhu0
+Shopify Graph QL queries: https://github.com/Shopify/storefront-api-learning-kit
+Shopify Storefront: Api: https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme
+Shopify API Reference: https://shopify.dev/docs/api/storefront
 
 
 
