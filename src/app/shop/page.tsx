@@ -39,7 +39,7 @@ export default async function ShopPage() {
           </p>
           <img
             src="cart_white.svg"
-            alt="Checkout"
+            alt="Checkout Icon"
             className="w-7 h-7 sm:w-10 sm:h-10"
           />
         </Link>
