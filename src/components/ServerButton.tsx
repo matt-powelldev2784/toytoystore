@@ -5,14 +5,12 @@ import { useRouter } from 'next/navigation'
 import { useFormStatus } from 'react-dom'
 
 type EnterStoreButtonProps = {
-  onClick?: () => Promise<void>
   href?: string
   text: string
   disabled?: boolean
 }
 
 export default function ServerButton({
-  onClick,
   href,
   text,
   disabled,
@@ -21,7 +19,6 @@ export default function ServerButton({
   const router = useRouter()
 
   const handleClick = async () => {
-    if (onClick) return await onClick()
     if (href) router.push(href)
   }
 

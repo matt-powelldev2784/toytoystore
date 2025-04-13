@@ -24,7 +24,9 @@ export default async function Home() {
       <h1 className="text-4xl font-bold mb-8">{promoInfo.companyName}</h1>
       <p className="text-lg">{promoInfo.promoMessage}</p>
 
-      <ServerButton onClick={initializeCart} text="Enter Store" />
+      <form action={initializeCart}>
+        <ServerButton text="Enter Store" />
+      </form>
     </section>
   )
 }

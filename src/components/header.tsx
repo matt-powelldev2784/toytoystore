@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { sanity } from '@/lib/sanity'
 import { SanityDocument } from 'next-sanity'
 import Link from 'next/link'
@@ -14,6 +15,12 @@ export default async function Header() {
   return (
     <header className="flex flex-row items-center justify-between p-4 sm:p-6 h-10 sm:h-14 bg-red-500">
       <Link href="/" className="flex items-center">
+        <img
+          src="toyshop_logo.svg"
+          alt="Checkout"
+          className="w-7 h-7 sm:w-10 sm:h-10 mr-2"
+        />
+
         <h1 className="text-xl sm:text-3xl font-bold text-white">
           {promoInfo.companyName}
         </h1>
