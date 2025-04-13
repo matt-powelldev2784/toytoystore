@@ -10,7 +10,7 @@ export default function AddToCartButton() {
     <button
       type="submit"
       disabled={pending}
-      className={`flex justify-center mt-4 px-4 py-2 text-white text-sm font-medium rounded bg-zinc-600 hover:bg-zinc-700 w-full`}
+      className={`flex cursor-pointer justify-center mt-4 px-4 py-2 text-white text-sm font-medium rounded bg-zinc-600 hover:bg-zinc-700 w-full`}
     >
       {pending ? (
         <img src="loading.svg" alt="loading" className="w-4 h-4 animate-spin" />

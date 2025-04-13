@@ -29,7 +29,7 @@ export default function ServerButton({
     <button
       onClick={handleClick}
       disabled={disabled || pending}
-      className={`bg-red-500 rounded p-2 text-white mt-8 w-[200px] ${disabled ? 'opacity-50' : ''}`}
+      className={`bg-red-500 rounded p-2 text-white mt-8 w-[200px] cursor-pointer ${disabled ? 'opacity-50' : ''}`}
     >
       {pending ? (
         <img

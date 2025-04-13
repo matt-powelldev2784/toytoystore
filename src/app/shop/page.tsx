@@ -29,17 +29,21 @@ export default async function ShopPage() {
         <h2 className="text-4xl font-bold">Products</h2>
       </div>
 
-      <Link
-        href={cart.checkoutUrl}
-        className="absolute top-0 right-4 z-30 flex items-center justify-center h-10 sm:h-14"
-      >
-        <p className="p-2 text-white font-bold text-2xl">{numberOfCartItems}</p>
-        <img
-          src="cart_white.svg"
-          alt="Checkout"
-          className="w-7 h-7 sm:w-10 sm:h-10"
-        />
-      </Link>
+      {numberOfCartItems > 0 && (
+        <Link
+          href={cart.checkoutUrl}
+          className="absolute top-0 right-4 z-30 flex items-center justify-center h-10 sm:h-14"
+        >
+          <p className="p-2 text-white font-bold text-2xl">
+            {numberOfCartItems}
+          </p>
+          <img
+            src="cart_white.svg"
+            alt="Checkout"
+            className="w-7 h-7 sm:w-10 sm:h-10"
+          />
+        </Link>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-8 px-4 sm:px-12">
         {products.map((product) => (
