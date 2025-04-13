@@ -16,7 +16,7 @@ export const handleAddToCart = async (formData: FormData) => {
       quantity: 1,
     })
 
-    revalidatePath('/shop') // Revalidate the shop page to reflect changes
+    revalidatePath('/shop') 
   } catch (error) {
     console.error('Error adding cart item', error)
   }
