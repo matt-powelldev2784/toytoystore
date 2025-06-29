@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { sanity } from '@/lib/sanity'
 import { SanityDocument } from 'next-sanity'
 import Link from 'next/link'

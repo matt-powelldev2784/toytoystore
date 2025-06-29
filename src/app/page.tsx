@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { type SanityDocument } from 'next-sanity'
 import { sanity, urlFor } from '@/lib/sanity'
 import ServerButton from '@/components/ServerButton'

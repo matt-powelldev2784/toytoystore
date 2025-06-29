@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { getCart, getProducts } from '@/lib/shopifyQueries'
 import ProductCard from '@/components/productCard'
 import { getCartIdFromCookie } from '@/lib/cartCookie'
