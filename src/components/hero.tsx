@@ -25,7 +25,7 @@ export default async function Hero() {
         />
       )}
 
-      <div className="relative md:w-1/2 bg-pink-500 md:absolute right-0 top-0 h-full flex flex-col items-center justify-center px-4 p-8">
+      <div className="relative md:w-1/2 bg-red-500 md:absolute right-0 top-0 h-full flex flex-col items-center justify-center px-4 p-8">
         <img
           src="toyshop_logo.svg"
           alt="teddy bear icon"
