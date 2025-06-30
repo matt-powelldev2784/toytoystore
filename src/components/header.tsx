@@ -23,7 +23,7 @@ export default async function Header() {
         />
 
         <h1 className="text-xl sm:text-3xl font-bold text-white">
-          {promoInfo.companyName}
+          {promoInfo.companyName.toUpperCase()}
         </h1>
       </Link>
     </header>
