@@ -1,7 +1,9 @@
 import { sanity } from '@/lib/sanity'
 import { SanityDocument } from 'next-sanity'
+
 import Link from 'next/link'
 import React from 'react'
+
 
 // get promo information from Sanity
 const PROMO_QUERY = `*[_type == "promo"]{ _id, image,promoMessage,companyName}`
