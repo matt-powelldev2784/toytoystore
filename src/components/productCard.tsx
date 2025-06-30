@@ -39,7 +39,7 @@ export default async function ProductCard({
         <form action={handleAddToCart}>
           <input type="hidden" name="cartId" value={cartId} />
           <input type="hidden" name="variantId" value={variantId} />
-          <ServerButton text={'Add to Cart'} variant="grey" />
+          <ServerButton text={'Add to Cart'} variant="grey" className="mt-8" />
         </form>
       </div>
     </article>
