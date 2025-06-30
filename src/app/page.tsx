@@ -2,6 +2,7 @@ import { type SanityDocument } from 'next-sanity'
 import { sanity, urlFor } from '@/lib/sanity'
 import ServerButton from '@/components/ServerButton'
 import { initializeCart } from '@/lib/actions'
+import TopCategories from '@/components/topCategories'
 
 // get promo information from Sanity
 const PROMO_QUERY = `*[_type == "promo"]{ _id, image,promoMessage,companyName}`
@@ -49,6 +50,8 @@ export default async function Home() {
           </form>
         </div>
       </article>
+
+      <TopCategories />
 
       <div className="">
         <img
