@@ -3,9 +3,10 @@
 import { useFormStatus } from 'react-dom'
 
 const variants = {
-  default: 'rounded p-2 text-white mt-8 w-full h-10 cursor-pointer',
+  default: 'rounded p-2 text-white w-full h-10 cursor-pointer',
   red: 'bg-red-500',
   grey: 'bg-zinc-700 ',
+  white: 'bg-white text-black',
 }
 
 type EnterStoreButtonProps = {
@@ -35,7 +36,7 @@ export default function ServerButton({
           className="w-4 h-4 animate-spin flex justify-center items-center mx-auto"
         />
       ) : (
-        <p>{text}</p>
+        <p className={`${variants[variant]}`}>{text}</p>
       )}
     </button>
   )
