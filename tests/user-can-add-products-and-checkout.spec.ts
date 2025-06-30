@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test'
 
-test('user add products and checkout', async ({ page }) => {
+test('user can add products and checkout', async ({ page }) => {
   await page.goto('/')
 
   // navigate to shop page
-  const enterStoreButton = page.getByRole('button', { name: 'Enter Store' })
+  const enterStoreButton = page.getByRole('button', { name: 'Shop Now' })
   await enterStoreButton.click()
 
   // check if the user is redirected to the shop page
