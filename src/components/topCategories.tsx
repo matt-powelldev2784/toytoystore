@@ -1,6 +1,6 @@
-import Link from 'next/link'
 import { sanity, urlFor } from '@/lib/sanity'
 import { SanityDocument } from 'next-sanity'
+import { initializeCart } from '@/lib/actions'
 
 // get top category information from Sanity
 const TOP_CATEGORIES_QUERY = `*[_type == "topCategories"]{ _id, image,title,description,"backgroundColor": backgroundColor.hex } | order(_createdAt desc)[0...4]`
@@ -25,9 +25,12 @@ export default async function TopCategories() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <form
+          action={initializeCart}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
           {topCategories?.map((category) => (
-            <Link key={category._id} href={'/shop'}>
+            <button key={category._id} className="cursor-pointer">
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
                 <div
                   className={`relative h-52 flex items-center justify-center`}
@@ -49,9 +52,9 @@ export default async function TopCategories() {
                   </p>
                 </div>
               </div>
-            </Link>
+            </button>
           ))}
-        </div>
+        </form>
       </div>
     </section>
   )
